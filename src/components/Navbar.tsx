@@ -1,19 +1,20 @@
 import React, { FC } from 'react';
-import { Layout, Row, Menu } from 'antd';
+import { Layout, Row, Menu, Col } from 'antd';
 import { useHistory } from 'react-router';
 import { RouteNames } from '../router';
+import { useTypedSelector } from '../hooks/useTypedSelector';
 
 
 const Navbar: FC = () => {
   const router = useHistory()
-  const auth = false;
+  const { isAuth } = useTypedSelector(state => state.auth)
 
   return (
     <Layout.Header>
       <Row justify="end">
-          {auth
+          {isAuth
             ?
-              <>
+            <Row justify="end">
                 <div style={{ color: 'white'}}>Alyona Avdoshkina</div>
                 <Menu theme="dark" mode="horizontal" selectable={false}>
                   <Menu.Item
@@ -23,7 +24,7 @@ const Navbar: FC = () => {
                     Log out
                   </Menu.Item>
                 </Menu>
-              </>
+              </Row>
             :
               <Menu theme="dark" mode="horizontal" selectable={false}>
                 <Menu.Item
