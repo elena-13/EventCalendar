@@ -14,7 +14,7 @@ const Navbar: FC = () => {
       <Row justify="end">
           {isAuth
             ?
-            <Row justify="end">
+            <>
                 <div style={{ color: 'white'}}>Alyona Avdoshkina</div>
                 <Menu theme="dark" mode="horizontal" selectable={false}>
                   <Menu.Item
@@ -24,7 +24,7 @@ const Navbar: FC = () => {
                     Log out
                   </Menu.Item>
                 </Menu>
-              </Row>
+              </>
             :
               <Menu theme="dark" mode="horizontal" selectable={false}>
                 <Menu.Item

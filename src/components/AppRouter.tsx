@@ -8,7 +8,7 @@ const AppRouter = () => {
 
   return (
     isAuth ? (
-            <Switch>
+          <Switch>
             {privateRoutes.map(route =>
               <Route
                 path={route.path}

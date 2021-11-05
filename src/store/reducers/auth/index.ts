@@ -1,7 +1,11 @@
+import { IUser } from '../../../models/IUser';
 import { AuthState, AuthAction, AuthActionEnum } from './types';
 
 const initialState: AuthState = {
-  isAuth: true,
+  isAuth: false,
+  user: {} as IUser,
+  isLoading: false,
+  error: '',
 }
 
 export default function auth(state = initialState, action: AuthAction): AuthState {
@@ -10,7 +14,27 @@ export default function auth(state = initialState, action: AuthAction): AuthStat
       return {
         ...state,
         isAuth: action.payload,
+        isLoading: false,
       };
+    }
+    case AuthActionEnum.SET_USER: {
+      return {
+        ...state,
+        user: action.payload,
+      }
+    }
+    case AuthActionEnum.SET_ERROR: {
+      return {
+        ...state,
+        error: action.payload,
+        isLoading: false,
+      }
+    }
+    case AuthActionEnum.SET_IS_LOADING: {
+      return {
+        ...state,
+        isLoading: action.payload,
+      }
     }
     default:
       return state;
