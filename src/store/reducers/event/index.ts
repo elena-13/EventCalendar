@@ -5,7 +5,7 @@ const initialState: EventState = {
     guests: [],
 }
 
-export default function EvenReducer(state = initialState, action: EventAction): EventState {
+export default function event(state = initialState, action: EventAction): EventState {
   switch (action.type) {
     case EventActionEnum.SET_GUESTS: {
       return {

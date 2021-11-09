@@ -1,8 +1,26 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Form, Input, Button, DatePicker, Row, Select } from "antd";
 import { rules } from '../utils/rules';
+import { IUser } from '../models/IUser';
+import { IEvent } from '../models/IEvent';
+import { Moment } from 'moment';
 
-const EventForm = () => {
+interface EventFormProps {
+  guests: IUser[]
+}
+
+const EventForm: FC<EventFormProps> = (props) => {
+  const [event, setEvent] = useState<IEvent>({
+    author: '',
+    date: '',
+    description: '',
+    guest: '',
+  } as IEvent);
+
+  const selectDate = (date: Moment | null) => {
+    console.log(date);
+  }
+
   return (
     <Form>
       <Form.Item
@@ -11,7 +29,8 @@ const EventForm = () => {
         rules={[rules.required()]}
       >
         <Input
-
+          onChange={({ target: { value } }) => setEvent({...event, description: value})}
+          value={event.description}
         />
       </Form.Item>
       <Form.Item
@@ -19,25 +38,25 @@ const EventForm = () => {
         name="date"
         rules={[rules.required()]}
       >
-        <DatePicker />
+        <DatePicker
+          onChange={(date) => selectDate(date)}
+        />
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        label="Select guest"
+        name="guest"
+        rules={[rules.required()]}
+      >
       <Select
         showSearch
-        // style={{ width: 200 }}
         placeholder="Select a person"
-        // optionFilterProp="children"
-        // onChange={onChange}
-        // onFocus={onFocus}
-        // onBlur={onBlur}
-        // onSearch={onSearch}
-        // filterOption={(input, option) =>
-        //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-        // }
+        onChange={(guest: string) => setEvent({...event, guest})}
       >
-        <Select.Option value="jack">Jack</Select.Option>
-        <Select.Option value="lucy">Lucy</Select.Option>
-        <Select.Option value="tom">Tom</Select.Option>
+        {props.guests.map(guest =>
+          <Select.Option key={guest.username} value={guest.username}>
+            {guest.username}
+          </Select.Option>
+        )}
       </Select>
       </Form.Item>
       <Row justify="end">
