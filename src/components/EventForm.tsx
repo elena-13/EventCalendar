@@ -47,7 +47,7 @@ const EventForm: FC<EventFormProps> = (props) => {
       <Form.Item
         label="Event date"
         name="date"
-        rules={[rules.required()]}
+        rules={[rules.required(), rules.isDateAfter("Creating event in past is not allowed")]}
       >
         <DatePicker
           onChange={(date) => selectDate(date)}
